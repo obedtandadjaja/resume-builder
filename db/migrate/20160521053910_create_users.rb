@@ -8,7 +8,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :zip
       t.string :city
       t.string :state
-      t.string :email
       t.string :phone
 
       t.timestamps null: false

@@ -1,4 +1,5 @@
 class ExperienceDutiesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_experience_duty, only: [:show, :edit, :update, :destroy]
 
   # GET /experience_duties

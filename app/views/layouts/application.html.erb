@@ -1,14 +1,194 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>ResumeBuilder</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/images/logo.png" />
+	<title>Resume Builder</title>
+	<link rel="stylesheet" type="text/css" href="http://tristanedwards.me/u/SweetAlert//lib/sweet-alert.css">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+	<!--[if lte IE 8]>
+	<%= javascript_include_tag 'selectivizr' %>
+	<![endif]-->
+	<style>
+		body {
+	    display: flex;
+	    min-height: 100vh;
+	    flex-direction: column;
+	  	}
+
+	  	main {
+	    flex: 1 0 auto;
+	  	}
+		
+		h1, h2 {
+		font-size: 2em;
+		}
+
+		.alert {
+		padding: 8px 35px 8px 14px;
+		margin-bottom: 18px;
+		color: #c09853;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+		background-color: #fcf8e3;
+		border: 1px solid #fbeed5;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		}
+
+		.alert-heading {
+		color: inherit;
+		}
+
+		.alert .close {
+		position: relative;
+		top: -2px;
+		right: -21px;
+		line-height: 18px;
+		}
+
+		.alert-danger,
+		.alert-error {
+		color: #b94a48;
+		background-color: #f2dede;
+		border-color: #eed3d7;
+		}
+
+		.alert-info {
+		color: #3a87ad;
+		background-color: #d9edf7;
+		border-color: #bce8f1;
+		}
+	</style>
+	<%= yield :css %>
 </head>
 <body>
+	<main>
+	<nav>
+		<div class="nav-wrapper blue-grey lighten-2">
+		  	<div class="container">
+				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+				<ul class="left hide-on-med-and-down">
+					<li><%= link_to "Home", '/' %></li>
+				</ul>
+				<ul class="right hide-on-med-and-down" style="margin-right: 15px">
+		            <% if current_user %>
+		            <li><%= link_to current_user.name, controller: "/users", action: "show", id: current_user.slug %></li>
+		            <li><%= link_to "Logout", '/users/sign_out', method: 'delete' %></li>
+		            <% else %>
+		            <li><%= link_to "Login", '/users/sign_in' %></li>
+		            <li><%= link_to "Signup", '/users/sign_up' %></li>
+		            <% end %>
+		        </ul>
+		        <ul class="side-nav" id="mobile-demo">
+		            <li><%= link_to "Home", '/' %></li>
+		            <% if current_user %>
+		            <li><%= link_to current_user.name, controller: "/users", action: "show", id: current_user.slug %></li>
+		            <li><%= link_to "Logout", '/users/sign_out', method: 'delete' %></li>
+		            <% else %>
+		            <li><%= link_to "Login", '/users/sign_in' %></li>
+		            <li><%= link_to "Signup", '/users/sign_up' %></li>
+		            <% end %>
+		        </ul>
+		  	</div>
+		</div>
+	  </nav>
 
-<%= yield %>
+	<% if flash[:notice] %>
+		<div class="alert alert-info">
+			<div class="container">
+			<a class="right" href="#"><i class="material-icons">done_all</i></a>
+			<ul>
+			<% if flash[:notice].kind_of?(Array) %>
+				<% flash[:notice].each do |flash| %>
+					<%= content_tag :li, flash %>
+				<% end %>
+			<% else %>
+				<%= content_tag :li, flash[:notice] %>
+			<% end %>
+			</ul>
+			</div>
+		</div>
+	<% end %>
+
+	<% if flash[:alert] %>
+		<div class="alert alert-danger">
+			<div class="container">
+			<a class="right" href="#"><i class="material-icons">done_all</i></a>
+			<ul>
+			<% if flash[:alert].kind_of?(Array) %>
+				<% flash[:alert].each do |flash| %>
+					<%= content_tag :li, flash %>
+				<% end %>
+			<% else %>
+				<%= content_tag :li, flash[:alert] %>
+			<% end %>
+			</ul>
+			</div>
+		</div>
+	<% end %>
+
+	<div class="container">
+	<%= yield %>
+	</div>
+
+	</main>
+
+	<!-- Footer -->
+	<footer class="page-footer blue-grey lighten-2">
+		<div class="container">
+			<div class="row">
+				<div class="col l4 m4 s12">
+					<h5 class="white-text">Navigation</h5>
+					<ul class="white-text">
+					  	<li><a class="white-text" href="/">Home</a></li>
+					  	<li><a class="white-text" href="/users/sign_in">Login</a></li>
+					  	<li><a class="white-text" href="/users/sign_up">Sign up</a></li>
+					</ul>
+				</div>
+				<div class="col l4 m4 s12">
+					<h5 class="white-text">Your resume</h5>
+					<ul>
+						<li><a class="grey-text text-lighten-3" href="">See PDF version</a></li>
+					  	<li><a class="grey-text text-lighten-3" href="/resumes">Edit resume</a></li>
+					</ul>
+				</div>
+				<div class="col l4 m4 s12">
+					<h5 class="white-text">Contact</h5>
+					<ul>
+						<li><p class="white-text">Found any bug? Came across any problem?<br>Email obed.tandadjaja@gmail.com</p></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+		    <div class="container">
+		    © 2016 Obed Tandadjaja
+		    </div>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<%= csrf_meta_tag %>
+	<%= javascript_include_tag "application" %>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+	<script src="http://tristanedwards.me/u/SweetAlert//lib/sweet-alert.js"></script>
+	<script>
+	$(document).ready(function(){
+	  $('select').material_select();
+	  $(".button-collapse").sideNav();
+	  $('.alert a').click(function()
+	  {
+	    $('.alert').remove();
+	  });
+	});
+	</script>
+	<%= yield :script %>
 
 </body>
 </html>
