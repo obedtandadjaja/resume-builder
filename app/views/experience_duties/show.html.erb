@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @experience_duty.description %>
+</p>
+
+<p>
+  <strong>Experience:</strong>
+  <%= @experience_duty.experience %>
+</p>
+
+<%= link_to 'Edit', edit_experience_duty_path(@experience_duty) %> |
+<%= link_to 'Back', experience_duties_path %>

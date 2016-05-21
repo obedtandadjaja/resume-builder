@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Major:</strong>
+  <%= @education.major %>
+</p>
+
+<p>
+  <strong>Minor:</strong>
+  <%= @education.minor %>
+</p>
+
+<p>
+  <strong>Degree:</strong>
+  <%= @education.degree %>
+</p>
+
+<p>
+  <strong>Gpa:</strong>
+  <%= @education.gpa %>
+</p>
+
+<p>
+  <strong>Class of:</strong>
+  <%= @education.class_of %>
+</p>
+
+<p>
+  <strong>Is enrolled:</strong>
+  <%= @education.is_enrolled %>
+</p>
+
+<p>
+  <strong>Resume:</strong>
+  <%= @education.resume %>
+</p>
+
+<%= link_to 'Edit', edit_education_path(@education) %> |
+<%= link_to 'Back', educations_path %>

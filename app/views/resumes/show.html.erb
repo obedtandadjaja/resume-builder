@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Objective:</strong>
+  <%= @resume.objective %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @resume.user %>
+</p>
+
+<%= link_to 'Edit', edit_resume_path(@resume) %> |
+<%= link_to 'Back', resumes_path %>

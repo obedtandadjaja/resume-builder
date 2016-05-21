@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  major: MyString
+  minor: MyString
+  degree: MyString
+  gpa: 9.99
+  class_of: 1
+  is_enrolled: false
+  resume_id: 
+
+two:
+  major: MyString
+  minor: MyString
+  degree: MyString
+  gpa: 9.99
+  class_of: 1
+  is_enrolled: false
+  resume_id: 
