@@ -1,29 +1,432 @@
-<p id="notice"><%= notice %></p>
+<% content_for :css do %>
+    <style type="text/css">
+    .predictor-summary {
+      padding: 8px;
+      margin-bottom: 12px;
+    }
+    body h3 {
+      font-weight: bold;
+      font-size: 21px;
+    }
+    ul, ol {
+      padding: 0;
+      margin: 0 0 10px 25px;
+    }
+    .predictor-summary h3 {
+      position: relative;
+    }
+    .predictor-summary h3 .about-predictor {
+      position: absolute;
+      right: 0;
+    }
+    .predictor-summary .result-label {
+      font-weight: bold;
+      color: #666666;
+      margin-bottom: 7px;
+    }
+    .predictor-summary .predictor-attributes {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    #email-to-friend .modal-body .body-text {
+      margin-bottom: 15px;
+    }
+    .resume-wrap .resume-section {
+      position: relative;
+      border-bottom: solid 1px #cccccc;
+      padding: 20px 30px;
+      font-size: 11.7px;
+      line-height: 14.3px;
+    }
+    .resume-wrap .resume-section > h3 {
+      color: #3fa448;
+      margin: 0 0 5px;
+      line-height: 1em;
+    }
+    .resume-wrap .resume-section .improve {
+      color: gray;
+      font-style: italic;
+    }
+    .resume-wrap .resume-section .improve a {
+      font-style: normal;
+    }
+    .resume-wrap .resume-section .resume-edit-link {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      background: #c8c8c8;
+      color: white;
+      padding: 4px 8px;
+      font-size: 11.05px;
+      line-height: 15px;
+      font-family: 'Open Sans Condensed', sans-serif;
+      text-transform: uppercase;
+      text-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    }
+    .resume-wrap .resume-section .resume-edit-link:before {
+      content: "";
+      float: left;
+      width: 20px;
+      height: 15px;
+      background: transparent url("https://idc-static.s3-us-west-2.amazonaws.com/whitelabel/btn-edit-pencil.png") no-repeat scroll left center !important;
+      vertical-align: middle;
+    }
+    .resume-wrap .resume-section .resume-edit-link:hover {
+      text-decoration: none;
+    }
+    .resume-wrap .resume-status {
+      color: white;
+      background-color: #3fa448;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .resume-wrap .certified {
+      position: relative;
+      top: 10px;
+      left: 20px;
+    }
+    .resume-wrap .resume-contact {
+      text-align: center;
+      border-bottom: solid 5px #333333;
+      margin: 20px 20px 0;
+      padding: 0;
+    }
+    .resume-wrap .resume-contact h1 {
+      margin: 0;
+      line-height: 1.1em;
+    }
+    .resume-wrap .resume-contact .resume-edit-link {
+      right: 0px;
+      top: 0px;
+    }
+    .resume-wrap .resume-contact .rd-intern-details {
+      padding: 8px 0;
+    }
+    .resume-wrap .resume-objective,
+    .resume-wrap .resume-additional {
+      padding-right: 80px;
+    }
+    .resume-wrap .resume-school,
+    .resume-wrap .resume-position {
+      position: relative;
+      border-top: solid 1px #cccccc;
+      padding: 15px 80px 15px 0;
+    }
+    .resume-wrap .resume-school:first-child,
+    .resume-wrap .resume-position:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+    .resume-wrap .resume-school h3,
+    .resume-wrap .resume-position h3 {
+      line-height: 1.1em;
+      margin: 0;
+    }
+    .resume-wrap .resume-school .resume-edit-link,
+    .resume-wrap .resume-position .resume-edit-link {
+      right: 0px;
+      top: 15px;
+    }
+    .resume-wrap .resume-school .stats {
+      font-weight: bold;
+    }
+    .resume-wrap .resume-school .school-location,
+    .resume-wrap .resume-school .enrolled-dates {
+      font-weight: bold;
+      color: #999999;
+    }
+    .resume-wrap .resume-position .company-position {
+      font-weight: bold;
+    }
+    .resume-wrap .resume-position .company-location,
+    .resume-wrap .resume-position .employed-dates {
+      font-weight: bold;
+      color: #999999;
+    }
+    .resume-wrap .info-item {
+      margin-bottom: 4px;
+      list-style-type: disc;
+      line-height: 14.3px;
+    }
+    .resume-wrap .additional-info {
+      margin-bottom: 0;
+    }
+    .resume-wrap .link-add {
+      display: inline-block;
+      padding: 8px 0;
+    }
+    .back-link-container {
+      margin: 15px 0;
+      float: right;
+    }
+    .btn-full-width {
+      width: 180px;
+      margin: 5px;
+    }
+    .email-errors {
+      color: red;
+    }
+    body.uploads.create .ajax-upload {
+      padding-top: 20px;
+    }
+    body.uploads.create .post-upload-resume img {
+      padding-left: 50px;
+    }
+    body.resumes.edit .sidebar-section {
+      margin-top: 53px;
+    }
+    body.resumes.edit .resume-status {
+      display: none;
+    }
+    body.resumes.edit .resume-tools-nav {
+      margin: 0;
+      padding: 0;
+    }
+    body.resumes.edit .resume-tools-nav li {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    body.resumes.edit #update_status {
+      width: 650px;
+    }
+    body.resumes.edit #update_status form {
+      margin: 0;
+    }
+    body.resumes.edit .update-status-form {
+      margin: 15px 0;
+    }
+    body.resumes.edit .update-status-form .ui-selectmenu {
+      display: inline-block;
+      width: 200px;
+      vertical-align: middle;
+    }
+    body.resumes.edit .update-status-form label.radio {
+      font-size: 13px;
+    }
+    body.resumes.edit .update-status-form #InterningAt {
+      width: 190px;
+      margin: 0;
+    }
+    body.resumes.edit .update-status-form #internship-time-period {
+      vertical-align: top;
+      padding-left: 12px;
+    }
+    body.resumes.edit .ui-selectmenu-menu {
+      z-index: 20000;
+    }
+    body.ie.resumes.edit .update-status-form {
+      line-height: 36px;
+    }
+    body.ie.resumes.edit .update-status-form .ui-selectmenu {
+      vertical-align: top;
+    }
+    body.ie.resumes.edit .update-status-form #InterningAt {
+      width: 180px;
+    }
+    body.resumes.show .share-container {
+      padding: 15px 0;
+    }
+    body.resumes.show .share-widget {
+      float: right;
+    }
+    body.resumes.show .share-widget > span {
+      float: left;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    body.resumes.show .share-widget a.last {
+      padding-right: 0;
+    }
+    .resume-wrap .info-item {
+      margin-bottom: 4px;
+      list-style-type: disc;
+      line-height: 14.3px;
+    }
+    </style>
+<% end %>
 
-<h1>Listing Resumes</h1>
+<div class="resume-wrap" style="background-color: white; width: 620px; padding-top: 5px; margin:auto; margin-top: 20px">
+<div class="resume-contact resume-section">
+    <a class="resume-edit-link ga-trackable" data-action="Edit Basic Info" href="/student/resume/contact-information" data-processed="true">Edit</a>    <h1>Obed T</h1>
+    <div class="rd-intern-details">
+        2050 E Fir Ave #203 • Fresno, CA 93650 • 5594737555 • obed.tandadjaja@gmail.com
+    </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Objective</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="resume-section resume-objective">
+    <a class="resume-edit-link ga-trackable" data-action="Edit Objective" href="/student/resume/objective" data-processed="true">Edit</a>    <h3>Objective</h3>
+    <div class="objective-text">
+        Hardworking individual intending to obtain an internship as a software/web/mobile developer, bringing an experienced background in software development and cyber security to contribute in developing applications and gain experience in the field
+    </div>
+</div>
 
-  <tbody>
-    <% @resumes.each do |resume| %>
-      <tr>
-        <td><%= resume.objective %></td>
-        <td><%= resume.user %></td>
-        <td><%= link_to 'Show', resume %></td>
-        <td><%= link_to 'Edit', edit_resume_path(resume) %></td>
-        <td><%= link_to 'Destroy', resume, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+<div class="resume-section resume-education">
+    <h3>Education</h3>
+    <div class="schools">
+        <div class="resume-school">
+            <a class="resume-edit-link ga-trackable" data-action="Edit Education" href="/student/resume/schools/edit/2672213" data-processed="true">Edit</a>
+            <h3>Covenant College</h3>
 
-<%= link_to 'New Resume', new_resume_path %>
+            <div class="stats">
+                <span class="degree">BA</span>,
+                <span class="major">Computer Science</span> (Major),
+                <span class="minor">Mathematics</span> (Minor)
+                <span class="gpa">&nbsp;&nbsp;GPA:&nbsp;3.94</span>
+            </div>
+            <div class="school-location">Lookout Mountain, GA</div>
+            <div class="enrolled-dates">Class of 2017</div>
+            <ul class="bullet-list additional-info">
+                <li class="info-item">
+                    <span class="add-info-val">
+                        Dorm Council Member 2014-2015
+                    </span>
+                </li>
+                <li class="info-item">
+                    <span class="add-info-val">
+                        Rugby Club Member
+                    </span>
+                </li>
+                <li class="info-item">
+                    <span class="add-info-val">
+                        Computer Science Department Tutor 2014-2015
+                    </span>
+                </li>
+                <li class="info-item">
+                    <span class="add-info-val">
+                        Developed a course scheduling web application for the school
+                    </span>
+                </li>
+                <li class="info-item">
+                    <span class="add-info-val">
+                        Dean's List 2013-2016
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <a href="/student/resume/schools/new" class="link-add ga-trackable" data-action="Add New Education" data-processed="true">Add Another School</a>
+    </div>
+</div>
+
+
+<div class="resume-section resume-experience">
+    <h3>Experience</h3>
+    <div class="positions">
+        <div class="resume-position">
+            <a class="resume-edit-link ga-trackable" data-action="Edit Experience" href="/student/resume/position/edit/5073103" data-processed="true">Edit</a>
+            <h3>Protégé LLC</h3>
+            <div class="company-position">Web Developer</div>
+            <div class="company-location">Chicago, IL</div>
+            <div class="employed-dates">May 2015 — Present</div>
+            <ul class="bullet-list additional-info">
+                <li class="info-item">
+                    <span class="add-info-val">
+                        Initiated a non-profit startup with my friends
+                    </span>
+                </li>
+                <li class="info-item">
+                    <span class="add-info-val">
+                        Developed the website’s front-end displays and part of its back-end using Laravel, PHP, HTML, CSS, Javascript, and SQL
+                    </span>
+                </li>
+                <li class="info-item">
+                    <span class="add-info-val">
+                        Set up Redis server, particularly on publish/subscribe functionality which is used for timeline
+                    </span>
+                </li>
+                <li class="info-item">
+                    <span class="add-info-val">
+                        Worked on the website's API and dynamic AJAX to populate contents from the API
+                    </span>
+                </li>
+                <li class="info-item">
+                    <span class="add-info-val">
+                        Experienced startup culture and creation, learned effective teamwork and communication, and acquired more knowledge in front-end programming, programming conventions, and proper documentations.
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <a href="/student/resume/positions/create" class="link-add ga-trackable" data-action="Add New Experience" data-processed="true">Add Another Position</a>
+    </div>
+</div>
+
+
+<div class="resume-additional resume-section">
+    <h3>Skills &amp; Additional Info</h3>
+    <a class="resume-edit-link ga-trackable" data-action="Edit Additional Info" href="/student/resume/additional-information" data-processed="true">Edit</a>
+    <ul class="bullet-list">
+        <li class="info-item">
+            <b>Skills</b> —
+            <span class="add-info-val">
+                Front End Developers, Research &amp; Development, Mobile Design, Web Application Design, Web Application Security, Database-driven Web Applications, Digital Forensics, Cryptography, Penetration Testing, Management, Tutoring, Multivariable Calculus, Linear Algebra, Databases, Python, HTML + CSS, Java, JavaScript, Android Development, Laravel, MIPS, SQL, PostgreSQL, Redis, MongoDB, Ruby, Ruby on Rails, SML, PHP, Prolog
+            </span>
+        </li>
+        <li class="info-item empty">
+            <span class="improve">
+                <a href="/student/resume/additional-information" class="ga-trackable" data-action="Edit Additional Info" data-processed="true">Click here to add</a>
+            </span>
+        </li>
+    </ul>
+</div>
+
+
+<div class="resume-section resume-links">
+    <a class="resume-edit-link ga-trackable" data-action="Edit Links" href="/student/resume/links" data-processed="true">Edit</a>
+    <h3>Links</h3>
+    <ul class="bullet-list additional-info">
+        <li class="info-item">
+            <span class="r-label">
+                My Website
+            </span>
+            —
+        <span class="add-info-val">
+            <a href="http://www.obedtandadjaja.com" target="_blank">
+                http://www.obedtandadjaja.com
+            </a>
+        </span>
+        </li>
+        <li class="info-item">
+            <span class="r-label">
+                My Work Samples
+            </span>
+            —
+        <span class="add-info-val">
+            <a href="http://www.obedtandadjaja.com/portfolio" target="_blank">
+                http://www.obedtandadjaja.com/portfolio
+            </a>
+        </span>
+        </li>
+        <li class="info-item">
+            <span class="r-label">
+                Github
+            </span>
+            —
+        <span class="add-info-val">
+            <a href="http://www.github.com/obedtandadjaja" target="_blank">
+                http://www.github.com/obedtandadjaja
+            </a>
+        </span>
+        </li>
+        <li class="info-item">
+            <span class="r-label">
+                LinkedIn
+            </span>
+            —
+        <span class="add-info-val">
+            <a href="http://www.linkedin.com/in/obedtandadjaja" target="_blank">
+                http://www.linkedin.com/in/obedtandadjaja
+            </a>
+        </span>
+        </li>
+    </ul>
+</div>
+</div>
