@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20160521224543) do
   add_index "links", ["resume_id"], name: "index_links_on_resume_id", using: :btree
 
   create_table "resumes", force: :cascade do |t|
+    t.string   "name"
     t.string   "objective"
     t.integer  "user_id"
     t.datetime "created_at", null: false

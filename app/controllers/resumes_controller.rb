@@ -5,7 +5,12 @@ class ResumesController < ApplicationController
   # GET /resumes
   # GET /resumes.json
   def index
-    @resumes = Resume.all
+    @current_user = current_user
+    if !@current_user.resume.any?
+      @resumes = Resume.create(user_id: @current_user.id)
+    else
+      @resumes = @current_user.resume.first
+    end
   end
 
   # GET /resumes/1
@@ -70,6 +75,6 @@ class ResumesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def resume_params
-      params.require(:resume).permit(:objective, :user_id)
+      params.require(:resume).permit(:objective, :user_id, :name)
     end
 end

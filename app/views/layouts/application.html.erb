@@ -76,7 +76,7 @@
 				</ul>
 				<ul class="right hide-on-med-and-down" style="margin-right: 15px">
 		            <% if current_user %>
-		            <li><%= link_to current_user.name, controller: "/users", action: "show", id: current_user.slug %></li>
+		            <li><%= link_to current_user.display_name, controller: "/users", action: "show", id: current_user.id %></li>
 		            <li><%= link_to "Logout", '/users/sign_out', method: 'delete' %></li>
 		            <% else %>
 		            <li><%= link_to "Login", '/users/sign_in' %></li>
@@ -86,7 +86,7 @@
 		        <ul class="side-nav" id="mobile-demo">
 		            <li><%= link_to "Home", '/' %></li>
 		            <% if current_user %>
-		            <li><%= link_to current_user.name, controller: "/users", action: "show", id: current_user.slug %></li>
+		            <li><%= link_to current_user.display_name, controller: "/users", action: "show", id: current_user.id %></li>
 		            <li><%= link_to "Logout", '/users/sign_out', method: 'delete' %></li>
 		            <% else %>
 		            <li><%= link_to "Login", '/users/sign_in' %></li>
