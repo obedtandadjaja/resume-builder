@@ -7,9 +7,9 @@ class ResumesController < ApplicationController
   def index
     @current_user = current_user
     if !@current_user.resume.any?
-      @resumes = Resume.create(user_id: @current_user.id)
+      @resume = Resume.create(user_id: @current_user.id)
     else
-      @resumes = @current_user.resume.first
+      @resume = @current_user.resume.first
     end
   end
 

@@ -8,7 +8,7 @@
       font-weight: bold;
       font-size: 21px;
     }
-    ul, ol {
+    .bullet-list {
       padding: 0;
       margin: 0 0 10px 25px;
     }
@@ -39,7 +39,7 @@
       line-height: 14.3px;
     }
     .resume-wrap .resume-section > h3 {
-      color: #3fa448;
+      color: #0d47a1;
       margin: 0 0 5px;
       line-height: 1em;
     }
@@ -252,16 +252,27 @@
 
 <div class="resume-wrap" style="background-color: white; width: 620px; padding-top: 5px; margin:auto; margin-top: 20px">
 <div class="resume-contact resume-section">
-    <a class="resume-edit-link ga-trackable" data-action="Edit Basic Info" href="/student/resume/contact-information" data-processed="true">Edit</a>    <h1>Obed T</h1>
+    <a class="resume-edit-link ga-trackable" data-action="Edit Basic Info" href="/student/resume/contact-information" data-processed="true">Edit</a>
+    <h1><%= current_user.display_name ? current_user.display_name : "#{current_user.first_name} #{current_user.last_name}" %></h1>
     <div class="rd-intern-details">
-        2050 E Fir Ave #203 • Fresno, CA 93650 • 5594737555 • obed.tandadjaja@gmail.com
+        <%= current_user.street_address %> •
+        <%= current_user.city %>,
+        <%= current_user.state %>
+        <%= current_user.zip %> •
+        <% if current_user.phone %><%= current_user.phone %> •<% end %>
+        <%= current_user.email %>
     </div>
 </div>
 
 <div class="resume-section resume-objective">
-    <a class="resume-edit-link ga-trackable" data-action="Edit Objective" href="/student/resume/objective" data-processed="true">Edit</a>    <h3>Objective</h3>
+    <a class="resume-edit-link ga-trackable" data-action="Edit Objective" href="/student/resume/objective" data-processed="true">Edit</a>
+    <h3>Objective</h3>
     <div class="objective-text">
-        Hardworking individual intending to obtain an internship as a software/web/mobile developer, bringing an experienced background in software development and cyber security to contribute in developing applications and gain experience in the field
+        <% if @resume.objective.nil? %>
+        <a href="">Add objective</a>
+        <% else %>
+        <%= @resume.objective %>
+        <% end %>
     </div>
 </div>
 
@@ -269,46 +280,32 @@
 <div class="resume-section resume-education">
     <h3>Education</h3>
     <div class="schools">
+        <% @resume.education.each do |education| %>
         <div class="resume-school">
             <a class="resume-edit-link ga-trackable" data-action="Edit Education" href="/student/resume/schools/edit/2672213" data-processed="true">Edit</a>
-            <h3>Covenant College</h3>
+            <h3><%= education.school_name %></h3>
 
             <div class="stats">
-                <span class="degree">BA</span>,
-                <span class="major">Computer Science</span> (Major),
-                <span class="minor">Mathematics</span> (Minor)
-                <span class="gpa">&nbsp;&nbsp;GPA:&nbsp;3.94</span>
+                <span class="degree"><%= education.degree %></span>,
+                <span class="major"><%= education.major ? education.major : "Undecided" %></span> (Major),
+                <% if education.minor %><span class="minor"><%= education.minor %></span> (Minor)<% end %>
+                <% if education.gpa %><span class="gpa">&nbsp;&nbsp;GPA:&nbsp;<%= education.gpa %></span><% end %>
             </div>
-            <div class="school-location">Lookout Mountain, GA</div>
-            <div class="enrolled-dates">Class of 2017</div>
+            <div class="school-location"><%= education.school_location %></div>
+            <div class="enrolled-dates">Class of <%= education.class_of %></div>
+            <% if education.education_accomplishment.any? %>
             <ul class="bullet-list additional-info">
+                <% education.education_accomplishment.each do |accomplishment| %>
                 <li class="info-item">
                     <span class="add-info-val">
-                        Dorm Council Member 2014-2015
+                        <%= accomplishment.description %>
                     </span>
                 </li>
-                <li class="info-item">
-                    <span class="add-info-val">
-                        Rugby Club Member
-                    </span>
-                </li>
-                <li class="info-item">
-                    <span class="add-info-val">
-                        Computer Science Department Tutor 2014-2015
-                    </span>
-                </li>
-                <li class="info-item">
-                    <span class="add-info-val">
-                        Developed a course scheduling web application for the school
-                    </span>
-                </li>
-                <li class="info-item">
-                    <span class="add-info-val">
-                        Dean's List 2013-2016
-                    </span>
-                </li>
+                <% end %>
             </ul>
+            <% end %>
         </div>
+        <% end %>
     </div>
     <div>
         <a href="/student/resume/schools/new" class="link-add ga-trackable" data-action="Add New Education" data-processed="true">Add Another School</a>
@@ -319,40 +316,26 @@
 <div class="resume-section resume-experience">
     <h3>Experience</h3>
     <div class="positions">
+        <% @resume.experience.each do |exp| %>
         <div class="resume-position">
             <a class="resume-edit-link ga-trackable" data-action="Edit Experience" href="/student/resume/position/edit/5073103" data-processed="true">Edit</a>
             <h3>Protégé LLC</h3>
             <div class="company-position">Web Developer</div>
             <div class="company-location">Chicago, IL</div>
             <div class="employed-dates">May 2015 — Present</div>
+            <% if exp.experience_duty.any? %>
             <ul class="bullet-list additional-info">
+                <% exp.experience_duty.each do |duty| %>
                 <li class="info-item">
                     <span class="add-info-val">
-                        Initiated a non-profit startup with my friends
+                        <%= duty.description %>
                     </span>
                 </li>
-                <li class="info-item">
-                    <span class="add-info-val">
-                        Developed the website’s front-end displays and part of its back-end using Laravel, PHP, HTML, CSS, Javascript, and SQL
-                    </span>
-                </li>
-                <li class="info-item">
-                    <span class="add-info-val">
-                        Set up Redis server, particularly on publish/subscribe functionality which is used for timeline
-                    </span>
-                </li>
-                <li class="info-item">
-                    <span class="add-info-val">
-                        Worked on the website's API and dynamic AJAX to populate contents from the API
-                    </span>
-                </li>
-                <li class="info-item">
-                    <span class="add-info-val">
-                        Experienced startup culture and creation, learned effective teamwork and communication, and acquired more knowledge in front-end programming, programming conventions, and proper documentations.
-                    </span>
-                </li>
+                <% end %>
             </ul>
+            <% end %>
         </div>
+        <% end %>
     </div>
     <div>
         <a href="/student/resume/positions/create" class="link-add ga-trackable" data-action="Add New Experience" data-processed="true">Add Another Position</a>
@@ -364,13 +347,24 @@
     <h3>Skills &amp; Additional Info</h3>
     <a class="resume-edit-link ga-trackable" data-action="Edit Additional Info" href="/student/resume/additional-information" data-processed="true">Edit</a>
     <ul class="bullet-list">
+        <% if @resume.skill.any? %>
         <li class="info-item">
             <b>Skills</b> —
             <span class="add-info-val">
-                Front End Developers, Research &amp; Development, Mobile Design, Web Application Design, Web Application Security, Database-driven Web Applications, Digital Forensics, Cryptography, Penetration Testing, Management, Tutoring, Multivariable Calculus, Linear Algebra, Databases, Python, HTML + CSS, Java, JavaScript, Android Development, Laravel, MIPS, SQL, PostgreSQL, Redis, MongoDB, Ruby, Ruby on Rails, SML, PHP, Prolog
+                <% @resume.skill.each do |skill| %>
+                  <%= skill == @resume.skill.last ? skill.title : "#{skill.title}, " %>
+                <% end %>
             </span>
         </li>
-        <li class="info-item empty">
+        <% end %>
+        <% @resume.additional_info.each do |info| %>
+        <li class="info-item">
+            <span class="add-info-val">
+                <%= info.description %>
+            </span>
+        </li>
+        <% end %>
+        <li class="info-item <%= @resume.additional_info.any? ? "" : "empty" %>">
             <span class="improve">
                 <a href="/student/resume/additional-information" class="ga-trackable" data-action="Edit Additional Info" data-processed="true">Click here to add</a>
             </span>
@@ -383,49 +377,23 @@
     <a class="resume-edit-link ga-trackable" data-action="Edit Links" href="/student/resume/links" data-processed="true">Edit</a>
     <h3>Links</h3>
     <ul class="bullet-list additional-info">
+        <% @resume.link.each do |link| %>
         <li class="info-item">
             <span class="r-label">
-                My Website
+                <%= link.description %>
             </span>
             —
         <span class="add-info-val">
-            <a href="http://www.obedtandadjaja.com" target="_blank">
-                http://www.obedtandadjaja.com
+            <a href="<%= link.url %>" target="_blank">
+                <%= link.url %>
             </a>
         </span>
         </li>
-        <li class="info-item">
-            <span class="r-label">
-                My Work Samples
+        <% end %>
+        <li class="info-item <%= @resume.additional_info.any? ? "" : "empty" %>">
+            <span class="improve">
+                <a href="/student/resume/additional-information" class="ga-trackable" data-action="Edit Additional Info" data-processed="true">Click here to add</a>
             </span>
-            —
-        <span class="add-info-val">
-            <a href="http://www.obedtandadjaja.com/portfolio" target="_blank">
-                http://www.obedtandadjaja.com/portfolio
-            </a>
-        </span>
-        </li>
-        <li class="info-item">
-            <span class="r-label">
-                Github
-            </span>
-            —
-        <span class="add-info-val">
-            <a href="http://www.github.com/obedtandadjaja" target="_blank">
-                http://www.github.com/obedtandadjaja
-            </a>
-        </span>
-        </li>
-        <li class="info-item">
-            <span class="r-label">
-                LinkedIn
-            </span>
-            —
-        <span class="add-info-val">
-            <a href="http://www.linkedin.com/in/obedtandadjaja" target="_blank">
-                http://www.linkedin.com/in/obedtandadjaja
-            </a>
-        </span>
         </li>
     </ul>
 </div>
