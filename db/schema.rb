@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20160521224543) do
   add_index "education_accomplishments", ["education_id"], name: "index_education_accomplishments_on_education_id", using: :btree
 
   create_table "educations", force: :cascade do |t|
+    t.string   "school_name"
+    t.string   "school_location"
     t.string   "major"
     t.string   "minor"
     t.string   "degree"
@@ -42,8 +44,8 @@ ActiveRecord::Schema.define(version: 20160521224543) do
     t.integer  "class_of"
     t.boolean  "is_enrolled"
     t.integer  "resume_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "educations", ["resume_id"], name: "index_educations_on_resume_id", using: :btree

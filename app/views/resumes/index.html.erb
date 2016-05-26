@@ -252,20 +252,22 @@
 
 <div class="resume-wrap" style="background-color: white; width: 620px; padding-top: 5px; margin:auto; margin-top: 20px">
 <div class="resume-contact resume-section">
-    <a class="resume-edit-link ga-trackable" data-action="Edit Basic Info" href="/student/resume/contact-information" data-processed="true">Edit</a>
+    <a class="resume-edit-link ga-trackable" data-action="Edit Basic Info" href="/users/<%= current_user.id %>/edit" data-processed="true">Edit</a>
     <h1><%= current_user.display_name ? current_user.display_name : "#{current_user.first_name} #{current_user.last_name}" %></h1>
     <div class="rd-intern-details">
+        <% if current_user.city && current_user.zip %>
         <%= current_user.street_address %> •
         <%= current_user.city %>,
         <%= current_user.state %>
         <%= current_user.zip %> •
+        <% end %>
         <% if current_user.phone %><%= current_user.phone %> •<% end %>
         <%= current_user.email %>
     </div>
 </div>
 
 <div class="resume-section resume-objective">
-    <a class="resume-edit-link ga-trackable" data-action="Edit Objective" href="/student/resume/objective" data-processed="true">Edit</a>
+    <a class="resume-edit-link ga-trackable" data-action="Edit Objective" href="/resumes/<%= @resume.id %>/edit" data-processed="true">Edit</a>
     <h3>Objective</h3>
     <div class="objective-text">
         <% if @resume.objective.nil? %>
@@ -282,7 +284,7 @@
     <div class="schools">
         <% @resume.education.each do |education| %>
         <div class="resume-school">
-            <a class="resume-edit-link ga-trackable" data-action="Edit Education" href="/student/resume/schools/edit/2672213" data-processed="true">Edit</a>
+            <a class="resume-edit-link ga-trackable" data-action="Edit Education" href="/educations/<%= education.id %>/edit" data-processed="true">Edit</a>
             <h3><%= education.school_name %></h3>
 
             <div class="stats">
@@ -308,7 +310,7 @@
         <% end %>
     </div>
     <div>
-        <a href="/student/resume/schools/new" class="link-add ga-trackable" data-action="Add New Education" data-processed="true">Add Another School</a>
+        <a href="/educations/new" class="link-add ga-trackable" data-action="Add New Education" data-processed="true">Add Another School</a>
     </div>
 </div>
 
@@ -318,11 +320,11 @@
     <div class="positions">
         <% @resume.experience.each do |exp| %>
         <div class="resume-position">
-            <a class="resume-edit-link ga-trackable" data-action="Edit Experience" href="/student/resume/position/edit/5073103" data-processed="true">Edit</a>
-            <h3>Protégé LLC</h3>
-            <div class="company-position">Web Developer</div>
-            <div class="company-location">Chicago, IL</div>
-            <div class="employed-dates">May 2015 — Present</div>
+            <a class="resume-edit-link ga-trackable" data-action="Edit Experience" href="/experiences/<%= exp.id %>/edit" data-processed="true">Edit</a>
+            <h3><%= exp.company %></h3>
+            <div class="company-position"><%= exp.position %></div>
+            <div class="company-location"><%= exp.location %></div>
+            <div class="employed-dates"><%= exp.start_date %> — <%= exp.end_date ? exp.end_date : "PRESENT" %></div>
             <% if exp.experience_duty.any? %>
             <ul class="bullet-list additional-info">
                 <% exp.experience_duty.each do |duty| %>
@@ -338,14 +340,14 @@
         <% end %>
     </div>
     <div>
-        <a href="/student/resume/positions/create" class="link-add ga-trackable" data-action="Add New Experience" data-processed="true">Add Another Position</a>
+        <a href="/experiences/new" class="link-add ga-trackable" data-action="Add New Experience" data-processed="true">Add Another Position</a>
     </div>
 </div>
 
 
 <div class="resume-additional resume-section">
     <h3>Skills &amp; Additional Info</h3>
-    <a class="resume-edit-link ga-trackable" data-action="Edit Additional Info" href="/student/resume/additional-information" data-processed="true">Edit</a>
+    <a class="resume-edit-link ga-trackable" data-action="Edit Additional Info" href="/additional_infos/edit" data-processed="true">Edit</a>
     <ul class="bullet-list">
         <% if @resume.skill.any? %>
         <li class="info-item">
@@ -366,7 +368,7 @@
         <% end %>
         <li class="info-item <%= @resume.additional_info.any? ? "" : "empty" %>">
             <span class="improve">
-                <a href="/student/resume/additional-information" class="ga-trackable" data-action="Edit Additional Info" data-processed="true">Click here to add</a>
+                <a href="/additional_infos/new" class="ga-trackable" data-action="Edit Additional Info" data-processed="true">Click here to add</a>
             </span>
         </li>
     </ul>
@@ -374,7 +376,7 @@
 
 
 <div class="resume-section resume-links">
-    <a class="resume-edit-link ga-trackable" data-action="Edit Links" href="/student/resume/links" data-processed="true">Edit</a>
+    <a class="resume-edit-link ga-trackable" data-action="Edit Links" href="/links/edit" data-processed="true">Edit</a>
     <h3>Links</h3>
     <ul class="bullet-list additional-info">
         <% @resume.link.each do |link| %>
@@ -392,7 +394,7 @@
         <% end %>
         <li class="info-item <%= @resume.additional_info.any? ? "" : "empty" %>">
             <span class="improve">
-                <a href="/student/resume/additional-information" class="ga-trackable" data-action="Edit Additional Info" data-processed="true">Click here to add</a>
+                <a href="/links/new" class="ga-trackable" data-action="Edit Additional Info" data-processed="true">Click here to add</a>
             </span>
         </li>
     </ul>
