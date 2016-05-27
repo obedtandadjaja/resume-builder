@@ -32,14 +32,21 @@
     <%= f.number_field :class_of %>
   </div>
   <div class="field">
-    <%= f.label :is_enrolled %><br>
-    <%= f.check_box :is_enrolled %>
+    <%= f.check_box :is_enrolled, class: "filled-in" %>
+    <%= f.label :is_enrolled %>
   </div>
   <div class="field">
-    <%= f.label :resume_id %><br>
-    <%= f.text_field :resume_id %>
+    <%= label_tag :education_accomplishments %><br>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+<% end %>
+
+<% content_for :script do %>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  });
+</script>
 <% end %>
