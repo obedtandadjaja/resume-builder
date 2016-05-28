@@ -1,52 +1,138 @@
+<% content_for :css do %>
+  <style type="text/css">
+    .input-append input {
+    width: 80%;
+    }
+    .input-append a {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    display: inline;
+    }
+    .input-append .disabled {
+    color: #ccc;
+    pointer-events: none;
+    }
+  </style>
+<% end %>
+
 <%= form_for(@education) do |f| %>
-  <% if @education.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@education.errors.count, "error") %> prohibited this education from being saved:</h2>
 
-      <ul>
-      <% @education.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
+  <div class="row">
+  <div class="field col l6 m6 s12">
     <%= f.label :major %><br>
     <%= f.text_field :major %>
   </div>
-  <div class="field">
+  <div class="field col l6 m6 s12">
     <%= f.label :minor %><br>
     <%= f.text_field :minor %>
   </div>
-  <div class="field">
+  <div class="field col l6 m6 s12">
     <%= f.label :degree %><br>
     <%= f.text_field :degree %>
   </div>
-  <div class="field">
+  <div class="field col l6 m6 s12">
     <%= f.label :gpa %><br>
-    <%= f.text_field :gpa %>
+    <%= f.number_field :gpa %>
   </div>
-  <div class="field">
+  <div class="field col l6 m6 s12">
+    <%= f.label :start_year %><br>
+    <%= f.number_field :start_date %>
+  </div>
+  <div class="field col l6 m6 s12" id="end_date_wrapper">
+    <%= f.label :end_year %><br>
+    <%= f.number_field :end_date %>
+  </div>
+  <div class="field col l6 m6 s12" id="class_of_wrapper" style="display:none">
     <%= f.label :class_of %><br>
     <%= f.number_field :class_of %>
   </div>
-  <div class="field">
+  <div class="field col s12" id="is_enrolled_wrapper">
     <%= f.check_box :is_enrolled, class: "filled-in" %>
     <%= f.label :is_enrolled %>
   </div>
-  <div class="field">
+  <div class="field col s12 education_accomplishment" style="margin-top: 20px">
     <%= label_tag :education_accomplishments %><br>
+    <label>Include relevant coursework, school projects, honors, awards, scholarships, extracurricular activities, and leadership experience.</label>
+    <% if @education.education_accomplishment.any? %>
+    <% @education.education_accomplishment.each_with_index do |acc, i| %>
+    <div class="input-append" data-itemid="<%= i %>">
+      <input id="education_accomplishment_<%= i %>" name="education[accomplishment][<%= i %>]" type="text" value="<%= acc.description %>">
+      <a class="delete-btn" href="#!"><i class="material-icons">remove_circle_outline</i></a>
+      <a class="add-btn" href="#!"><i class="material-icons">add_circle_outline</i></a>
+      <a class="down-btn <%= ((acc == @education.education_accomplishment.last) || (@education.education_accomplishment.count == 0)) ? "disabled" : "" %>" href="#!"><i class="material-icons">arrow_downward</i></a>
+      <a class="up-btn <%= ((acc == @education.education_accomplishment.first) || (@education.education_accomplishment.count == 0)) ? "disabled" : "" %>" href="#!"><i class="material-icons">arrow_upward</i></a>
+    </div>
+    <% end %>
+    <% else %>
+    <div class="input-append" data-itemid="0">
+      <input id="education_accomplishment_0" name="education[accomplishment][0]" type="text" value="">
+      <a class="delete-btn" href="#!"><i class="material-icons">remove_circle_outline</i></a>
+      <a class="add-btn" href="#!"><i class="material-icons">add_circle_outline</i></a>
+      <a class="down-btn disabled" href="#!"><i class="material-icons">arrow_downward</i></a>
+      <a class="up-btn disabled" href="#!"><i class="material-icons">arrow_upward</i></a>
+    </div>
+    <% end %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions col s12">
+    <%= yield :delete %>
+    <%= f.submit "Add school", class: "btn blue-grey" %>
+  </div>
   </div>
 <% end %>
 
 <% content_for :script do %>
 <script type="text/javascript">
   $(document).ready(function(){
-
+    $('input[id=education_is_enrolled]').change(function() {
+      if($(this).is(':checked')) {
+        $('#end_date_wrapper').hide();
+        $('#class_of_wrapper').fadeIn();
+      } else {
+        $('#class_of_wrapper').hide();
+        $('#end_date_wrapper').fadeIn();
+      }
+    });
+    $('.education_accomplishment').on('click', ".delete-btn", function() {
+      var counter1 = $('.delete-btn').length;
+      if(counter1 <= 1) {
+        $(this).parent().find("input").val("");
+      } else {
+        $(this).parent().prev().find('.down-btn').addClass("disabled");
+        $(this).parent().remove();
+      }
+    });
+    $('.education_accomplishment').on('click', ".add-btn", function() {
+      $(this).parent().parent().find('.down-btn').removeClass("disabled");
+      var counter = $('.education_accomplishment .input-append input').length;
+      $(this).parent().parent().append(
+        '<div class="input-append" data-itemid="'+counter+'">'+
+          '<input id="education_accomplishment_'+counter+'" name="education[accomplishment]['+counter+']" type="text" value="">'+
+          '<a class="delete-btn" href="#!" style="margin: 2px"><i class="material-icons">remove_circle_outline</i></a>'+
+          '<a class="add-btn" href="#!" style="margin: 2px"><i class="material-icons">add_circle_outline</i></a>'+
+          '<a class="down-btn disabled" href="#!" style="margin: 2px"><i class="material-icons">arrow_downward</i></a>'+
+          '<a class="up-btn" href="#!" style="margin: 2px"><i class="material-icons">arrow_upward</i></a>'+
+        '</div>'
+      );
+    });
+    $('.education_accomplishment').on('click', ".down-btn", function() {
+      var first = $(this).parent().find("input");
+      var second = $(this).parent().next().find("input");
+      var temp = first.attr("name");
+      first.attr("name", second.attr("name"));
+      temp = second.attr("name", first.attr("name"));
+      second.replaceWith(first);
+      $(this).parent().prepend(temp);
+    });
+    $('.education_accomplishment').on('click', ".up-btn", function() {
+      var first = $(this).parent().find("input");
+      var second = $(this).parent().prev().find("input");
+      var temp = first.attr("name");
+      first.attr("name", second.attr("name"));
+      temp = second.attr("name", first.attr("name"));
+      second.replaceWith(first);
+      $(this).parent().prepend(temp);
+    });
   });
 </script>
 <% end %>

@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20160521224543) do
     t.decimal  "gpa"
     t.integer  "class_of"
     t.boolean  "is_enrolled"
+    t.date     "start_date"
+    t.date     "end_date"
     t.integer  "resume_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

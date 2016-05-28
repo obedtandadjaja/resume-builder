@@ -1,4 +1,4 @@
 class Education < ActiveRecord::Base
-  has_many :education_accomplishments
+  has_many :education_accomplishment
   belongs_to :resume
 end
