@@ -119,8 +119,12 @@
       var first = $(this).parent().find("input");
       var second = $(this).parent().next().find("input");
       var temp = first.attr("name");
+      var temp2 = first.attr("id");
       first.attr("name", second.attr("name"));
-      temp = second.attr("name", first.attr("name"));
+      first.attr("id", second.attr("id"));
+      second.attr("name", temp);
+      second.attr("id", temp2);
+      temp = second;
       second.replaceWith(first);
       $(this).parent().prepend(temp);
     });
@@ -128,8 +132,12 @@
       var first = $(this).parent().find("input");
       var second = $(this).parent().prev().find("input");
       var temp = first.attr("name");
+      var temp2 = first.attr("id");
       first.attr("name", second.attr("name"));
-      temp = second.attr("name", first.attr("name"));
+      first.attr("id", second.attr("id"));
+      second.attr("name", temp);
+      second.attr("id", temp2);
+      temp = second;
       second.replaceWith(first);
       $(this).parent().prepend(temp);
     });
