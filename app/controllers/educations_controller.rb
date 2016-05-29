@@ -24,16 +24,15 @@ class EducationsController < ApplicationController
   # POST /educations
   # POST /educations.json
   def create
-    @education = Education.new(education_params)
-
-    respond_to do |format|
+    if params[:education][:accomplishment]["0"] != ""
+      @education = Education.new(education_params)
       if @education.save
-        format.html { redirect_to @education, notice: 'Education was successfully created.' }
-        format.json { render :show, status: :created, location: @education }
+        redirect_to '/'
       else
-        format.html { render :new }
-        format.json { render json: @education.errors, status: :unprocessable_entity }
+        redirect_to :back, flash: {alert: @education.errors.full_messages}
       end
+    else
+      redirect_to :back, flash: {alert: "Must have at least one accomplishment"}
     end
   end
 
@@ -69,6 +68,7 @@ class EducationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def education_params
-      params.require(:education).permit(:major, :minor, :degree, :gpa, :class_of, :is_enrolled, :resume_id)
+      params.require(:education).permit(:school_name, :school_location, :major, :minor, :degree, :gpa, :start_date,
+        :end_date, :is_enrolled, :resume_id, :accomplishment).merge(resume_id: current_user.resume.first.id)
     end
 end

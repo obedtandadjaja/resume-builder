@@ -7,10 +7,9 @@ class CreateEducations < ActiveRecord::Migration
       t.string :minor
       t.string :degree
       t.decimal :gpa
-      t.integer :class_of
       t.boolean :is_enrolled
-      t.date :start_date
-      t.date :end_date
+      t.integer :start_date
+      t.integer :end_date
       t.references :resume, index: true, foreign_key: true
 
       t.timestamps null: false

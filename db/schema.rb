@@ -41,10 +41,9 @@ ActiveRecord::Schema.define(version: 20160521224543) do
     t.string   "minor"
     t.string   "degree"
     t.decimal  "gpa"
-    t.integer  "class_of"
     t.boolean  "is_enrolled"
-    t.date     "start_date"
-    t.date     "end_date"
+    t.integer  "start_date"
+    t.integer  "end_date"
     t.integer  "resume_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

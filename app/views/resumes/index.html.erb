@@ -294,7 +294,7 @@
                 <% if education.gpa %><span class="gpa">&nbsp;&nbsp;GPA:&nbsp;<%= education.gpa %></span><% end %>
             </div>
             <div class="school-location"><%= education.school_location %></div>
-            <div class="enrolled-dates">Class of <%= education.class_of %></div>
+            <div class="enrolled-dates"><%= education.is_enrolled ? "Class of" : "#{education.start_date} -" %> <%= education.end_date %></div>
             <% if education.education_accomplishment.any? %>
             <ul class="bullet-list additional-info">
                 <% education.education_accomplishment.each do |accomplishment| %>
