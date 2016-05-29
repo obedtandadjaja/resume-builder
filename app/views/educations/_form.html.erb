@@ -48,7 +48,7 @@
     <%= f.number_field :gpa %>
   </div>
   <div class="field col l6 m6 s12">
-    <%= f.label :start_year %><br>
+    <%= f.label :start_year %> <p class="required">*</p><br>
     <%= f.number_field :start_date %>
   </div>
   <div class="field col l6 m6 s12" id="end_date_wrapper">
@@ -95,9 +95,11 @@
     $('input[id=education_is_enrolled]').change(function() {
       if($(this).is(':checked')) {
         $('#end_date_wrapper').hide();
-        $('#class_of_wrapper').fadeIn();
+        $('#end_date_wrapper').find("label").text("Class of");
+        $('#end_date_wrapper').fadeIn();
       } else {
-        $('#class_of_wrapper').hide();
+        $('#end_date_wrapper').hide();
+        $('#end_date_wrapper').find("label").text("End year");
         $('#end_date_wrapper').fadeIn();
       }
     });

@@ -6,7 +6,7 @@ class Education < ActiveRecord::Base
   validates :school_location, presence: true
   validates :start_date, presence: true, inclusion: (Date.current.year-50)..(Date.current.year)
   validates :end_date, presence: true, inclusion: (Date.current.year-50)..(Date.current.year+10)
-  validates :start_date_lower
+  validate :start_date_lower
   validates :degree, presence: true
 
   private
