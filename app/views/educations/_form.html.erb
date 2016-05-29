@@ -13,14 +13,26 @@
     color: #ccc;
     pointer-events: none;
     }
+    .required {
+      color: red;
+      display: inline;
+    }
   </style>
 <% end %>
 
 <%= form_for(@education) do |f| %>
-
+  
   <div class="row">
   <div class="field col l6 m6 s12">
-    <%= f.label :major %><br>
+    <%= f.label :school_name %> <p class="required">*</p><br>
+    <%= f.text_field :school_name %>
+  </div>
+  <div class="field col l6 m6 s12">
+    <%= f.label :school_location %> <p class="required">*</p><br>
+    <%= f.text_field :school_location %>
+  </div>
+  <div class="field col l6 m6 s12">
+    <%= f.label :major %> <p class="required">*</p><br>
     <%= f.text_field :major %>
   </div>
   <div class="field col l6 m6 s12">
@@ -28,7 +40,7 @@
     <%= f.text_field :minor %>
   </div>
   <div class="field col l6 m6 s12">
-    <%= f.label :degree %><br>
+    <%= f.label :degree %> <p class="required">*</p><br>
     <%= f.text_field :degree %>
   </div>
   <div class="field col l6 m6 s12">
@@ -40,11 +52,11 @@
     <%= f.number_field :start_date %>
   </div>
   <div class="field col l6 m6 s12" id="end_date_wrapper">
-    <%= f.label :end_year %><br>
+    <%= f.label :end_year %> <p class="required">*</p><br>
     <%= f.number_field :end_date %>
   </div>
   <div class="field col l6 m6 s12" id="class_of_wrapper" style="display:none">
-    <%= f.label :class_of %><br>
+    <%= f.label :class_of %> <p class="required">*</p><br>
     <%= f.number_field :class_of %>
   </div>
   <div class="field col s12" id="is_enrolled_wrapper">
@@ -52,7 +64,7 @@
     <%= f.label :is_enrolled %>
   </div>
   <div class="field col s12 education_accomplishment" style="margin-top: 20px">
-    <%= label_tag :education_accomplishments %><br>
+    <%= label_tag :education_accomplishments %> <p class="required">*</p><br>
     <label>Include relevant coursework, school projects, honors, awards, scholarships, extracurricular activities, and leadership experience.</label>
     <% if @education.education_accomplishment.any? %>
     <% @education.education_accomplishment.each_with_index do |acc, i| %>
