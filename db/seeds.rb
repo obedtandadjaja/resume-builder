@@ -5,5 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create(first_name: "Obed", last_name: "Tandadjaja", display_name: "Obed Tandadjaja", email: "obed.tandadjaja@gmail.com",
-	password: "testing123")
+User.create!(first_name: "Obed", last_name: "Tandadjaja", display_name: "Obed Tandadjaja", email: "obed.tandadjaja@gmail.com",
+	password: "testing123", street_address: "2050 E Fir Ave APT 203", city: "Fresno", state: "CA", zip: "93720",
+	phone: "(559)4737-555")

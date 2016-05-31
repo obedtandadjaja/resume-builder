@@ -27,6 +27,9 @@ class EducationsController < ApplicationController
     if params[:education][:accomplishment]["0"] != ""
       @education = Education.new(education_params)
       if @education.save
+        params[:education][:accomplishment].each do |acc|
+          EducationAccomplishment.create(description: acc, education_id: @education.id)
+        end
         redirect_to '/'
       else
         redirect_to :back, flash: {alert: @education.errors.full_messages}
@@ -39,14 +42,19 @@ class EducationsController < ApplicationController
   # PATCH/PUT /educations/1
   # PATCH/PUT /educations/1.json
   def update
-    respond_to do |format|
+    @education = Education.find(params[:id])
+    if params[:education][:accomplishment]["0"] != ""
       if @education.update(education_params)
-        format.html { redirect_to @education, notice: 'Education was successfully updated.' }
-        format.json { render :show, status: :ok, location: @education }
+        @education.accomplishment.delete_all
+        params[:education][:accomplishment].each do |acc|
+          EducationAccomplishment.create(description: acc, education_id: @education.id)
+        end
+        redirect_to '/'
       else
-        format.html { render :edit }
-        format.json { render json: @education.errors, status: :unprocessable_entity }
+        redirect_to :back, flash: {alert: @education.errors.full_messages}
       end
+    else
+      redirect_to :back, flash: {alert: "Must have at least one accomplishment"}
     end
   end
 

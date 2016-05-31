@@ -25,30 +25,37 @@ class ExperiencesController < ApplicationController
   # POST /experiences
   # POST /experiences.json
   def create
-    @experience = Experience.new(experience_params)
-
-    respond_to do |format|
+    if params[:experience][:duty]["0"] != ""
+      @experience = Experience.new(experience_params)
       if @experience.save
-        format.html { redirect_to @experience, notice: 'Experience was successfully created.' }
-        format.json { render :show, status: :created, location: @experience }
+        params[:experience][:duty].each do |acc|
+          ExperienceDuty.create(description: acc, experience_id: @experience.id)
+        end
+        redirect_to '/'
       else
-        format.html { render :new }
-        format.json { render json: @experience.errors, status: :unprocessable_entity }
+        redirect_to :back, flash: {alert: @experience.errors.full_messages}
       end
+    else
+      redirect_to :back, flash: {alert: "Must have at least one duty"}
     end
   end
 
   # PATCH/PUT /experiences/1
   # PATCH/PUT /experiences/1.json
   def update
-    respond_to do |format|
+    @experience = Experience.find(params[:id])
+    if params[:experience][:duty]["0"] != ""
       if @experience.update(experience_params)
-        format.html { redirect_to @experience, notice: 'Experience was successfully updated.' }
-        format.json { render :show, status: :ok, location: @experience }
+        @experience.duty.delete_all
+        params[:experience][:duty].each do |acc|
+          ExperienceDuty.create(description: acc, experience_id: @experience.id)
+        end
+        redirect_to '/'
       else
-        format.html { render :edit }
-        format.json { render json: @experience.errors, status: :unprocessable_entity }
+        redirect_to :back, flash: {alert: @experience.errors.full_messages}
       end
+    else
+      redirect_to :back, flash: {alert: "Must have at least one duty"}
     end
   end
 

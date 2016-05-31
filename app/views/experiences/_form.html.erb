@@ -1,45 +1,153 @@
+<% content_for :css do %>
+  <style type="text/css">
+    .input-append input {
+    width: 80%;
+    }
+    .input-append a {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    display: inline;
+    }
+    .input-append .disabled {
+    color: #ccc;
+    pointer-events: none;
+    }
+    .required {
+      color: red;
+      display: inline;
+    }
+  </style>
+<% end %>
+
 <%= form_for(@experience) do |f| %>
-  <% if @experience.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@experience.errors.count, "error") %> prohibited this experience from being saved:</h2>
-
-      <ul>
-      <% @experience.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :company %><br>
+  
+  <div class="row">
+  <div class="field col l6 m6 s12">
+    <%= f.label :company %> <p class="required">*</p><br>
     <%= f.text_field :company %>
   </div>
-  <div class="field">
-    <%= f.label :position %><br>
+  <div class="field col l6 m6 s12">
+    <%= f.label :position %> <p class="required">*</p><br>
     <%= f.text_field :position %>
   </div>
-  <div class="field">
-    <%= f.label :location %><br>
+  <div class="field col s12">
+    <%= f.label :location %> <p class="required">*</p><br>
     <%= f.text_field :location %>
   </div>
-  <div class="field">
-    <%= f.label :start_date %><br>
-    <%= f.date_select :start_date %>
+  <div class="field col l6 m6 s12">
+    <%= f.label :start_year %> <p class="required">*</p><br>
+    <%= f.number_field :start_date %>
   </div>
-  <div class="field">
-    <%= f.label :end_date %><br>
-    <%= f.date_select :end_date %>
+  <div class="field col l6 m6 s12">
+    <%= f.label :end_year %> <p class="required">*</p><br>
+    <%= f.number_field :end_date %>
   </div>
-  <div class="field">
-    <%= f.label :is_employed %><br>
+  <div class="field col s12">
     <%= f.check_box :is_employed %>
+    <%= f.label :is_employed %>
   </div>
-  <div class="field">
-    <%= f.label :resume_id %><br>
-    <%= f.text_field :resume_id %>
+  <div class="field col s12 experience_duty" style="margin-top: 20px">
+    <%= label_tag :experience_duties %> <p class="required">*</p><br>
+    <label>Include relevant coursework, school projects, honors, awards, scholarships, extracurricular activities, and leadership experience.</label>
+    <% if @experience.experience_duty.any? %>
+    <% @experience.experience_duty.each_with_index do |acc, i| %>
+    <div class="input-append">
+      <input id="experience_duty_<%= i %>" name="experience[duty][<%= i %>]" type="text" value="<%= acc.description %>">
+      <a class="delete-btn" href="#!"><i class="material-icons">remove_circle_outline</i></a>
+      <a class="add-btn" href="#!"><i class="material-icons">add_circle_outline</i></a>
+      <a class="down-btn <%= ((acc == @experience.experience_duty.last) || (@experience.experience_duty.count == 0)) ? "disabled" : "" %>" href="#!"><i class="material-icons">arrow_downward</i></a>
+      <a class="up-btn <%= ((acc == @experience.experience_duty.first) || (@experience.experience_duty.count == 0)) ? "disabled" : "" %>" href="#!"><i class="material-icons">arrow_upward</i></a>
+    </div>
+    <% end %>
+    <% else %>
+    <div class="input-append">
+      <input id="experience_duty_0" name="experience[duty][0]" type="text" value="">
+      <a class="delete-btn" href="#!"><i class="material-icons">remove_circle_outline</i></a>
+      <a class="add-btn" href="#!"><i class="material-icons">add_circle_outline</i></a>
+      <a class="down-btn disabled" href="#!"><i class="material-icons">arrow_downward</i></a>
+      <a class="up-btn disabled" href="#!"><i class="material-icons">arrow_upward</i></a>
+    </div>
+    <% end %>
   </div>
-  <div class="actions">
+  <div class="actions col s12">
     <%= f.submit %>
   </div>
+  </div>
+<% end %>
+
+<% content_for :script do %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('input[id=experience_is_enrolled]').change(function() {
+      if($(this).is(':checked')) {
+        $('#end_date_wrapper').hide();
+        $('#end_date_wrapper').find("label").text("Class of");
+        $('#end_date_wrapper').fadeIn();
+      } else {
+        $('#end_date_wrapper').hide();
+        $('#end_date_wrapper').find("label").text("End year");
+        $('#end_date_wrapper').fadeIn();
+      }
+    });
+    $('.experience_duty').on('click', ".delete-btn", function() {
+      var counter1 = $('.delete-btn').length;
+      if(counter1 <= 1) {
+        $(this).parent().find("input").val("");
+      } else {
+        // console.log($(this).parent().find("input").attr("id").replace("experience_duty_", ""));
+        if(counter1-1 == $(this).parent().find("input").attr("id").replace("experience_duty_", "")) {
+          $(this).parent().prev().find('.down-btn').addClass("disabled");
+        }
+        if($(this).parent().find("input").attr("id").replace("experience_duty_", "") == 0) {
+          $(this).parent().next().find('.up-btn').addClass("disabled");
+        }
+        $(this).parent().remove();
+        $.each($('.experience_duty').find("input"), function(i, input) {
+          $(input).attr("id", "experience_duty_"+i);
+          $(input).attr("name", "experience[duty]["+i+"]");
+        });
+      }
+    });
+    $('.experience_duty').on('click', ".add-btn", function() {
+      $(this).parent().parent().find('.down-btn').removeClass("disabled");
+      var counter = $('.experience_duty .input-append input').length;
+      $(this).parent().parent().append(
+        '<div class="input-append">'+
+          '<input id="experience_duty_'+counter+'" name="experience[duty]['+counter+']" type="text" value="">'+
+          '<a class="delete-btn" href="#!" style="margin: 2px"><i class="material-icons">remove_circle_outline</i></a>'+
+          '<a class="add-btn" href="#!" style="margin: 2px"><i class="material-icons">add_circle_outline</i></a>'+
+          '<a class="down-btn disabled" href="#!" style="margin: 2px"><i class="material-icons">arrow_downward</i></a>'+
+          '<a class="up-btn" href="#!" style="margin: 2px"><i class="material-icons">arrow_upward</i></a>'+
+        '</div>'
+      );
+    });
+    $('.experience_duty').on('click', ".down-btn", function() {
+      var first = $(this).parent().find("input");
+      var second = $(this).parent().next().find("input");
+      var temp = first.attr("name");
+      var temp2 = first.attr("id");
+      first.attr("name", second.attr("name"));
+      first.attr("id", second.attr("id"));
+      second.attr("name", temp);
+      second.attr("id", temp2);
+      temp = second;
+      second.replaceWith(first);
+      $(this).parent().prepend(temp);
+    });
+    $('.experience_duty').on('click', ".up-btn", function() {
+      var first = $(this).parent().find("input");
+      var second = $(this).parent().prev().find("input");
+      var temp = first.attr("name");
+      var temp2 = first.attr("id");
+      first.attr("name", second.attr("name"));
+      first.attr("id", second.attr("id"));
+      second.attr("name", temp);
+      second.attr("id", temp2);
+      temp = second;
+      second.replaceWith(first);
+      $(this).parent().prepend(temp);
+    });
+  });
+</script>
 <% end %>

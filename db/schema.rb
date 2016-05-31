@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20160521224543) do
     t.string   "company"
     t.string   "position"
     t.string   "location"
-    t.date     "start_date"
-    t.date     "end_date"
+    t.integer  "start_date"
+    t.integer  "end_date"
     t.boolean  "is_employed"
     t.integer  "resume_id"
     t.datetime "created_at",  null: false

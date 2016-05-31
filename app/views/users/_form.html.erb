@@ -1,22 +1,20 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<% content_for :css do %>
+  <style type="text/css">
+    .required {
+      color: red;
+      display: inline;
+    }
+  </style>
+<% end %>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for(@user) do |f| %>
 
   <div class="field">
-    <%= f.label :first_name %><br>
+    <%= f.label :first_name %> <p class="required">*</p><br>
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br>
+    <%= f.label :last_name %> <p class="required">*</p><br>
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
@@ -24,27 +22,27 @@
     <%= f.text_field :display_name %>
   </div>
   <div class="field">
-    <%= f.label :street_address %><br>
+    <%= f.label :street_address %> <p class="required">*</p><br>
     <%= f.text_field :street_address %>
   </div>
   <div class="field">
-    <%= f.label :zip %><br>
-    <%= f.text_field :zip %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br>
+    <%= f.label :city %> <p class="required">*</p><br>
     <%= f.text_field :city %>
   </div>
   <div class="field">
-    <%= f.label :state %><br>
+    <%= f.label :state %> <p class="required">*</p><br>
     <%= f.text_field :state %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :zip %> <p class="required">*</p><br>
+    <%= f.text_field :zip %>
+  </div>
+  <div class="field">
+    <%= f.label :email %> <p class="required">*</p><br>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :phone %><br>
+    <%= f.label :phone %> <p class="required">*</p><br>
     <%= f.text_field :phone %>
   </div>
   <div class="actions">

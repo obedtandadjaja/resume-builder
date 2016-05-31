@@ -4,8 +4,8 @@ class CreateExperiences < ActiveRecord::Migration
       t.string :company
       t.string :position
       t.string :location
-      t.date :start_date
-      t.date :end_date
+      t.integer :start_date
+      t.integer :end_date
       t.boolean :is_employed
       t.references :resume, index: true, foreign_key: true
 
