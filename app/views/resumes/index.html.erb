@@ -271,7 +271,7 @@
     <h3>Objective</h3>
     <div class="objective-text">
         <% if @resume.objective.nil? %>
-        <a href="">Add objective</a>
+        <a href="/resumes/<%= @resume.id %>/edit">Add objective</a>
         <% else %>
         <%= @resume.objective %>
         <% end %>
@@ -376,7 +376,7 @@
 
 
 <div class="resume-section resume-links">
-    <a class="resume-edit-link ga-trackable" data-action="Edit Links" href="/links/edit" data-processed="true">Edit</a>
+    <a class="resume-edit-link ga-trackable" data-action="Edit Links" href="/links/new" data-processed="true">Edit</a>
     <h3>Links</h3>
     <ul class="bullet-list additional-info">
         <% @resume.link.each do |link| %>

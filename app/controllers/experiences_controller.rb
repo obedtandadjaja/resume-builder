@@ -28,7 +28,7 @@ class ExperiencesController < ApplicationController
     if params[:experience][:duty]["0"] != ""
       @experience = Experience.new(experience_params)
       if @experience.save
-        params[:experience][:duty].each do |acc|
+        params[:experience][:duty].each do |i, acc|
           ExperienceDuty.create(description: acc, experience_id: @experience.id)
         end
         redirect_to '/'
@@ -47,7 +47,7 @@ class ExperiencesController < ApplicationController
     if params[:experience][:duty]["0"] != ""
       if @experience.update(experience_params)
         @experience.duty.delete_all
-        params[:experience][:duty].each do |acc|
+        params[:experience][:duty].each do |i, acc|
           ExperienceDuty.create(description: acc, experience_id: @experience.id)
         end
         redirect_to '/'
@@ -77,6 +77,7 @@ class ExperiencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def experience_params
-      params.require(:experience).permit(:company, :position, :location, :start_date, :end_date, :is_employed, :resume_id)
+      params.require(:experience).permit(:company, :position, :location, :start_date, :end_date, :is_employed, :resume_id,
+        :duty).merge(resume_id: current_user.resume.first.id)
     end
 end

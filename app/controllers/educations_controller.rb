@@ -27,7 +27,7 @@ class EducationsController < ApplicationController
     if params[:education][:accomplishment]["0"] != ""
       @education = Education.new(education_params)
       if @education.save
-        params[:education][:accomplishment].each do |acc|
+        params[:education][:accomplishment].each do |i, acc|
           EducationAccomplishment.create(description: acc, education_id: @education.id)
         end
         redirect_to '/'
@@ -45,8 +45,8 @@ class EducationsController < ApplicationController
     @education = Education.find(params[:id])
     if params[:education][:accomplishment]["0"] != ""
       if @education.update(education_params)
-        @education.accomplishment.delete_all
-        params[:education][:accomplishment].each do |acc|
+        @education.education_accomplishment.delete_all
+        params[:education][:accomplishment].each do |i, acc|
           EducationAccomplishment.create(description: acc, education_id: @education.id)
         end
         redirect_to '/'
