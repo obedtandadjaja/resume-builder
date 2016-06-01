@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Resume Builder</title>
+    
+    <%= wicked_pdf_stylesheet_link_tag "materialize.min" %>
+
+    <%= yield :css %>
+
+</head>
+<body>
+
+    <div class="container">
+        <%= yield %>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <%= wicked_pdf_javascript_include_tag "application" %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+</body>
+</html>

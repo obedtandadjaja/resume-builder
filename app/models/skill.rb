@@ -1,5 +1,5 @@
 class Skill < ActiveRecord::Base
   belongs_to :resume
 
-  validates :skill, presence: true
+  validates :title, presence: true
 end

@@ -11,11 +11,30 @@ class ResumesController < ApplicationController
     else
       @resume = @current_user.resume.first
     end
+
+    respond_to do |format|
+        format.html
+        format.pdf do
+          render :pdf => 'file_name',
+          :template => 'resumes/resume.pdf.erb',
+          :layout => 'pdf.html.erb',
+          :margin => {top: 0, bottom: 0, left: 0, right: 0}
+        end
+    end
   end
 
   # GET /resumes/1
   # GET /resumes/1.json
   def show
+    respond_to do |format|
+        format.html
+        format.pdf do
+          render :pdf => 'file_name',
+          :template => 'resumes/resume.pdf.erb',
+          :layout => 'pdf.html.erb',
+          :margin => {top: 0, bottom: 0, left: 0, right: 0}
+        end
+    end
   end
 
   # GET /resumes/new

@@ -1,25 +1,213 @@
-<%= form_for(@additional_info) do |f| %>
-  <% if @additional_info.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@additional_info.errors.count, "error") %> prohibited this additional_info from being saved:</h2>
+<% content_for :css do %>
+  <style type="text/css">
+    .input-append a {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    display: inline;
+    }
+    .input-append .disabled {
+    color: #ccc;
+    pointer-events: none;
+    }
+    .required {
+      color: red;
+      display: inline;
+    }
+  </style>
+<% end %>
 
-      <ul>
-      <% @additional_info.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_for @additional_info do |f| %>
+  <div class="field col s12 resume_additional_info" style="margin-top: 20px">
+    <%= label_tag :resume_additional_infos %> <p class="required">*</p><br>
+    <% if @resume.additional_info.any? %>
+    <% @resume.additional_info.each_with_index do |additional_info, i| %>
+    <div class="input-append">
+      <input id="additional_info_<%= i %>" style="width: 80%" name="additional_info[<%= i %>]" type="text" value="<%= additional_info.description %>" placeholder="Additional info">
+      <a class="delete-btn" href="#!"><i class="material-icons">remove_circle_outline</i></a>
+      <a class="add-btn" href="#!"><i class="material-icons">add_circle_outline</i></a>
+      <a class="down-btn <%= ((additional_info == @resume.additional_info.last) || (@resume.additional_info.count == 0)) ? "disabled" : "" %>" href="#!"><i class="material-icons">arrow_downward</i></a>
+      <a class="up-btn <%= ((additional_info == @resume.additional_info.first) || (@resume.additional_info.count == 0)) ? "disabled" : "" %>" href="#!"><i class="material-icons">arrow_upward</i></a>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <% end %>
+    <% else %>
+    <div class="input-append">
+      <input id="additional_info_0" style="width: 80%" name="additional_info[0]" type="text" value="" placeholder="Description">
+      <a class="delete-btn" href="#!"><i class="material-icons">remove_circle_outline</i></a>
+      <a class="add-btn" href="#!"><i class="material-icons">add_circle_outline</i></a>
+      <a class="down-btn disabled" href="#!"><i class="material-icons">arrow_downward</i></a>
+      <a class="up-btn disabled" href="#!"><i class="material-icons">arrow_upward</i></a>
+    </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :resume_id %><br>
-    <%= f.text_field :resume_id %>
+  <div class="field col s12 resume_skill" style="margin-top: 20px">
+    <%= label_tag :resume_skills %> <p class="required">*</p><br>
+    <% if @resume.skill.any? %>
+    <% @resume.skill.each_with_index do |skill, i| %>
+    <div class="input-append">
+      <input id="skill_<%= i %>" style="width: 80%" name="skill[<%= i %>]" type="text" value="<%= skill.title %>" placeholder="Skill title">
+      <a class="delete-btn" href="#!"><i class="material-icons">remove_circle_outline</i></a>
+      <a class="add-btn" href="#!"><i class="material-icons">add_circle_outline</i></a>
+      <a class="down-btn <%= ((skill == @resume.skill.last) || (@resume.skill.count == 0)) ? "disabled" : "" %>" href="#!"><i class="material-icons">arrow_downward</i></a>
+      <a class="up-btn <%= ((skill == @resume.skill.first) || (@resume.skill.count == 0)) ? "disabled" : "" %>" href="#!"><i class="material-icons">arrow_upward</i></a>
+    </div>
+    <% end %>
+    <% else %>
+    <div class="input-append">
+      <input id="skill_0" style="width: 80%" name="skill[0]" type="text" value="" placeholder="Skill title">
+      <a class="delete-btn" href="#!"><i class="material-icons">remove_circle_outline</i></a>
+      <a class="add-btn" href="#!"><i class="material-icons">add_circle_outline</i></a>
+      <a class="down-btn disabled" href="#!"><i class="material-icons">arrow_downward</i></a>
+      <a class="up-btn disabled" href="#!"><i class="material-icons">arrow_upward</i></a>
+    </div>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+<% end %>
+
+<% content_for :script do %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('input[id=resume_is_enrolled]').change(function() {
+      if($(this).is(':checked')) {
+        $('#end_date_wrapper').hide();
+        $('#end_date_wrapper').find("label").text("Class of");
+        $('#end_date_wrapper').fadeIn();
+      } else {
+        $('#end_date_wrapper').hide();
+        $('#end_date_wrapper').find("label").text("End year");
+        $('#end_date_wrapper').fadeIn();
+      }
+    });
+    $('.resume_additional_info').on('click', ".delete-btn", function() {
+      var counter1 = $('.delete-btn').length;
+      if(counter1 <= 1) {
+        $(this).parent().find("input").val("");
+      } else {
+        // console.log($(this).parent().find("input").attr("id").replace("additional_info_", ""));
+        if(counter1-1 == $(this).parent().find("input").attr("id").replace("additional_info_", "")) {
+          $(this).parent().prev().find('.down-btn').addClass("disabled");
+        }
+        if($(this).parent().find("input").attr("id").replace("additional_info_", "") == 0) {
+          $(this).parent().next().find('.up-btn').addClass("disabled");
+        }
+        $(this).parent().remove();
+        $.each($('.resume_additional_info').find("input"), function(i, input) {
+          $(input).attr("id", "additional_info_"+i);
+          $(input).attr("name", "additional_info["+i+"]");
+        });
+      }
+    });
+    $('.resume_additional_info').on('click', ".add-btn", function() {
+      $(this).parent().parent().find('.down-btn').removeClass("disabled");
+      var counter = $('.resume_additional_info .input-append input').length;
+      $(this).parent().parent().append(
+        '<div class="input-append">'+
+          '<input id="additional_info_'+counter+'" style="width: 80%"  name="additional_info['+counter+']" type="text" value="" placeholder="Additional info">'+
+          '<a class="delete-btn" href="#!" style="margin: 2px"><i class="material-icons">remove_circle_outline</i></a>'+
+          '<a class="add-btn" href="#!" style="margin: 2px"><i class="material-icons">add_circle_outline</i></a>'+
+          '<a class="down-btn disabled" href="#!" style="margin: 2px"><i class="material-icons">arrow_downward</i></a>'+
+          '<a class="up-btn" href="#!" style="margin: 2px"><i class="material-icons">arrow_upward</i></a>'+
+        '</div>'
+      );
+    });
+    $('.resume_additional_info').on('click', ".down-btn", function() {
+      var first = $(this).parent().find("input");
+      var second = $(this).parent().next().find("input");
+      var temp = first.attr("name");
+      var temp2 = first.attr("id");
+      first.attr("name", second.attr("name"));
+      first.attr("id", second.attr("id"));
+      second.attr("name", temp);
+      second.attr("id", temp2);
+      temp = second;
+      second.replaceWith(first);
+      $(this).parent().prepend(temp);
+    });
+    $('.resume_additional_info').on('click', ".up-btn", function() {
+      var first = $(this).parent().find("input");
+      var second = $(this).parent().prev().find("input");
+      var temp = first.attr("name");
+      var temp2 = first.attr("id");
+      first.attr("name", second.attr("name"));
+      first.attr("id", second.attr("id"));
+      second.attr("name", temp);
+      second.attr("id", temp2);
+      temp = second;
+      second.replaceWith(first);
+      $(this).parent().prepend(temp);
+    });
+    $('input[id=resume_is_enrolled]').change(function() {
+      if($(this).is(':checked')) {
+        $('#end_date_wrapper').hide();
+        $('#end_date_wrapper').find("label").text("Class of");
+        $('#end_date_wrapper').fadeIn();
+      } else {
+        $('#end_date_wrapper').hide();
+        $('#end_date_wrapper').find("label").text("End year");
+        $('#end_date_wrapper').fadeIn();
+      }
+    });
+    $('.resume_skill').on('click', ".delete-btn", function() {
+      var counter1 = $('.delete-btn').length;
+      if(counter1 <= 1) {
+        $(this).parent().find("input").val("");
+      } else {
+        // console.log($(this).parent().find("input").attr("id").replace("skill_", ""));
+        if(counter1-1 == $(this).parent().find("input").attr("id").replace("skill_", "")) {
+          $(this).parent().prev().find('.down-btn').addClass("disabled");
+        }
+        if($(this).parent().find("input").attr("id").replace("skill_", "") == 0) {
+          $(this).parent().next().find('.up-btn').addClass("disabled");
+        }
+        $(this).parent().remove();
+        $.each($('.resume_skill').find("input"), function(i, input) {
+          $(input).attr("id", "skill_"+i);
+          $(input).attr("name", "skill["+i+"]");
+        });
+      }
+    });
+    $('.resume_skill').on('click', ".add-btn", function() {
+      $(this).parent().parent().find('.down-btn').removeClass("disabled");
+      var counter = $('.resume_skill .input-append input').length;
+      $(this).parent().parent().append(
+        '<div class="input-append">'+
+          '<input id="skill_'+counter+'" style="width: 80%"  name="skill['+counter+']" type="text" value="" placeholder="Skill title">'+
+          '<a class="delete-btn" href="#!" style="margin: 2px"><i class="material-icons">remove_circle_outline</i></a>'+
+          '<a class="add-btn" href="#!" style="margin: 2px"><i class="material-icons">add_circle_outline</i></a>'+
+          '<a class="down-btn disabled" href="#!" style="margin: 2px"><i class="material-icons">arrow_downward</i></a>'+
+          '<a class="up-btn" href="#!" style="margin: 2px"><i class="material-icons">arrow_upward</i></a>'+
+        '</div>'
+      );
+    });
+    $('.resume_skill').on('click', ".down-btn", function() {
+      var first = $(this).parent().find("input");
+      var second = $(this).parent().next().find("input");
+      var temp = first.attr("name");
+      var temp2 = first.attr("id");
+      first.attr("name", second.attr("name"));
+      first.attr("id", second.attr("id"));
+      second.attr("name", temp);
+      second.attr("id", temp2);
+      temp = second;
+      second.replaceWith(first);
+      $(this).parent().prepend(temp);
+    });
+    $('.resume_skill').on('click', ".up-btn", function() {
+      var first = $(this).parent().find("input");
+      var second = $(this).parent().prev().find("input");
+      var temp = first.attr("name");
+      var temp2 = first.attr("id");
+      first.attr("name", second.attr("name"));
+      first.attr("id", second.attr("id"));
+      second.attr("name", temp);
+      second.attr("id", temp2);
+      temp = second;
+      second.replaceWith(first);
+      $(this).parent().prepend(temp);
+    });
+  });
+</script>
 <% end %>
