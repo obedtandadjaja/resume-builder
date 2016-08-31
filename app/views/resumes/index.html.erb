@@ -249,7 +249,13 @@
     }
     </style>
 <% end %>
-<%= link_to 'Printable PDF', resume_path(@resume, format: 'pdf'), :class => "btn blue-grey col s12" %>
+<div class="row" style="margin-top: 20px">
+  <div class="col s12">
+    <div class="center">
+      <%= link_to 'Generate Printable PDF', resume_path(@resume, format: 'pdf'), :class => "btn green" %>
+    </div>
+  </div>
+</div>
 <div class="resume-wrap" style="background-color: white; width: 620px; padding-top: 5px; margin:auto; margin-top: 20px">
 <div class="resume-contact resume-section">
     <a class="resume-edit-link ga-trackable" data-action="Edit Basic Info" href="/users/<%= current_user.id %>/edit" data-processed="true">Edit</a>

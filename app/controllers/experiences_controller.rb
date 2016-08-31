@@ -46,7 +46,7 @@ class ExperiencesController < ApplicationController
     @experience = Experience.find(params[:id])
     if params[:experience][:duty]["0"] != ""
       if @experience.update(experience_params)
-        @experience.duty.delete_all
+        @experience.experience_duty.delete_all
         params[:experience][:duty].each do |i, acc|
           ExperienceDuty.create(description: acc, experience_id: @experience.id)
         end

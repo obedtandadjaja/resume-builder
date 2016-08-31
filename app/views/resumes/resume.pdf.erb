@@ -1,261 +1,261 @@
 <% content_for :css do %>
-    <style type="text/css">
-    .predictor-summary {
-      padding: 8px;
-      margin-bottom: 12px;
-    }
-    body h3 {
-      font-weight: bold;
-      font-size: 21px;
-    }
-    .bullet-list {
-      padding: 0;
-      margin: 0 0 10px 25px;
-    }
-    .predictor-summary h3 {
-      position: relative;
-    }
-    .predictor-summary h3 .about-predictor {
-      position: absolute;
-      right: 0;
-    }
-    .predictor-summary .result-label {
-      font-weight: bold;
-      color: #666666;
-      margin-bottom: 7px;
-    }
-    .predictor-summary .predictor-attributes {
-      font-weight: bold;
-      font-size: 16px;
-    }
-    #email-to-friend .modal-body .body-text {
-      margin-bottom: 15px;
-    }
-    .resume-wrap .resume-section {
-      position: relative;
-      border-bottom: solid 1px #cccccc;
-      padding: 10px 0 10px 0;
-      font-size: 11.7px;
-      line-height: 14.3px;
-      margin: 20px 20px 0;
-    }
-    .resume-wrap .resume-section > h3 {
-      color: #0d47a1;
-      margin: 0 0 5px;
-      line-height: 1em;
-    }
-    .resume-wrap .resume-section .improve {
-      color: gray;
-      font-style: italic;
-    }
-    .resume-wrap .resume-section .improve a {
-      font-style: normal;
-    }
-    .resume-wrap .resume-section .resume-edit-link {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      border-radius: 3px;
-      background: #c8c8c8;
-      color: white;
-      padding: 4px 8px;
-      font-size: 11.05px;
-      line-height: 15px;
-      font-family: 'Open Sans Condensed', sans-serif;
-      text-transform: uppercase;
-      text-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-    }
-    .resume-wrap .resume-section .resume-edit-link:before {
-      content: "";
-      float: left;
-      width: 20px;
-      height: 15px;
-      background: transparent url("https://idc-static.s3-us-west-2.amazonaws.com/whitelabel/btn-edit-pencil.png") no-repeat scroll left center !important;
-      vertical-align: middle;
-    }
-    .resume-wrap .resume-section .resume-edit-link:hover {
-      text-decoration: none;
-    }
-    .resume-wrap .resume-status {
-      color: white;
-      background-color: #3fa448;
-      text-align: center;
-      font-weight: bold;
-      font-size: 14px;
-    }
-    .resume-wrap .certified {
-      position: relative;
-      top: 10px;
-      left: 20px;
-    }
-    .resume-wrap .resume-contact {
-      text-align: center;
-      border-bottom: solid 5px #333333;
-      margin: 20px 20px 0;
-      padding: 0;
-    }
-    .resume-wrap .resume-contact h1 {
-      margin: 0;
-      line-height: 1.1em;
-    }
-    .resume-wrap .resume-contact .resume-edit-link {
-      right: 0px;
-      top: 0px;
-    }
-    .resume-wrap .resume-contact .rd-intern-details {
-      padding: 8px 0;
-    }
-    .resume-wrap .resume-objective,
-    .resume-wrap .resume-additional {
-      padding-right: 80px;
-    }
-    .resume-wrap .resume-school,
-    .resume-wrap .resume-position {
-      position: relative;
-      border-top: solid 1px #cccccc;
-      padding: 15px 80px 15px 0;
-    }
-    .resume-wrap .resume-school:first-child,
-    .resume-wrap .resume-position:first-child {
-      padding-top: 0;
-      border-top: 0;
-    }
-    .resume-wrap .resume-school h3,
-    .resume-wrap .resume-position h3 {
-      line-height: 1.1em;
-      margin: 0;
-    }
-    .resume-wrap .resume-school .resume-edit-link,
-    .resume-wrap .resume-position .resume-edit-link {
-      right: 0px;
-      top: 15px;
-    }
-    .resume-wrap .resume-school .stats {
-      font-weight: bold;
-    }
-    .resume-wrap .resume-school .school-location,
-    .resume-wrap .resume-school .enrolled-dates {
-      font-weight: bold;
-      color: #999999;
-    }
-    .resume-wrap .resume-position .company-position {
-      font-weight: bold;
-    }
-    .resume-wrap .resume-position .company-location,
-    .resume-wrap .resume-position .employed-dates {
-      font-weight: bold;
-      color: #999999;
-    }
-    .resume-wrap .info-item {
-      margin-bottom: 4px;
-      list-style-type: disc;
-      line-height: 14.3px;
-    }
-    .resume-wrap .additional-info {
-      margin-bottom: 0;
-    }
-    .resume-wrap .link-add {
-      display: inline-block;
-      padding: 8px 0;
-    }
-    .back-link-container {
-      margin: 15px 0;
-      float: right;
-    }
-    .btn-full-width {
-      width: 180px;
-      margin: 5px;
-    }
-    .email-errors {
-      color: red;
-    }
-    body.uploads.create .ajax-upload {
-      padding-top: 20px;
-    }
-    body.uploads.create .post-upload-resume img {
-      padding-left: 50px;
-    }
-    body.resumes.edit .sidebar-section {
-      margin-top: 53px;
-    }
-    body.resumes.edit .resume-status {
-      display: none;
-    }
-    body.resumes.edit .resume-tools-nav {
-      margin: 0;
-      padding: 0;
-    }
-    body.resumes.edit .resume-tools-nav li {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-    body.resumes.edit #update_status {
-      width: 650px;
-    }
-    body.resumes.edit #update_status form {
-      margin: 0;
-    }
-    body.resumes.edit .update-status-form {
-      margin: 15px 0;
-    }
-    body.resumes.edit .update-status-form .ui-selectmenu {
-      display: inline-block;
-      width: 200px;
-      vertical-align: middle;
-    }
-    body.resumes.edit .update-status-form label.radio {
-      font-size: 13px;
-    }
-    body.resumes.edit .update-status-form #InterningAt {
-      width: 190px;
-      margin: 0;
-    }
-    body.resumes.edit .update-status-form #internship-time-period {
-      vertical-align: top;
-      padding-left: 12px;
-    }
-    body.resumes.edit .ui-selectmenu-menu {
-      z-index: 20000;
-    }
-    body.ie.resumes.edit .update-status-form {
-      line-height: 36px;
-    }
-    body.ie.resumes.edit .update-status-form .ui-selectmenu {
-      vertical-align: top;
-    }
-    body.ie.resumes.edit .update-status-form #InterningAt {
-      width: 180px;
-    }
-    body.resumes.show .share-container {
-      padding: 15px 0;
-    }
-    body.resumes.show .share-widget {
-      float: right;
-    }
-    body.resumes.show .share-widget > span {
-      float: left;
-      font-weight: bold;
-      margin-right: 5px;
-    }
-    body.resumes.show .share-widget a.last {
-      padding-right: 0;
-    }
-    .resume-wrap .info-item {
-      margin-bottom: 4px;
-      list-style-type: disc;
-      line-height: 14.3px;
-    }
-    .resume-contact h1 {
-      font-size: 30px;
-    }
-    </style>
+  <style type="text/css">
+  .predictor-summary {
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+  body h3 {
+    font-weight: bold;
+    font-size: 21px;
+  }
+  .bullet-list {
+    padding: 0;
+    margin: 0 0 10px 25px;
+  }
+  .predictor-summary h3 {
+    position: relative;
+  }
+  .predictor-summary h3 .about-predictor {
+    position: absolute;
+    right: 0;
+  }
+  .predictor-summary .result-label {
+    font-weight: bold;
+    color: #666666;
+    margin-bottom: 7px;
+  }
+  .predictor-summary .predictor-attributes {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  #email-to-friend .modal-body .body-text {
+    margin-bottom: 15px;
+  }
+  .resume-wrap .resume-section {
+    position: relative;
+    border-bottom: solid 1px #cccccc;
+    padding: 10px 0 10px 0;
+    font-size: 11.7px;
+    line-height: 14.3px;
+    margin: 20px 20px 0;
+  }
+  .resume-wrap .resume-section > h3 {
+    color: #0d47a1;
+    margin: 0 0 5px;
+    line-height: 1em;
+  }
+  .resume-wrap .resume-section .improve {
+    color: gray;
+    font-style: italic;
+  }
+  .resume-wrap .resume-section .improve a {
+    font-style: normal;
+  }
+  .resume-wrap .resume-section .resume-edit-link {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background: #c8c8c8;
+    color: white;
+    padding: 4px 8px;
+    font-size: 11.05px;
+    line-height: 15px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-transform: uppercase;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  }
+  .resume-wrap .resume-section .resume-edit-link:before {
+    content: "";
+    float: left;
+    width: 20px;
+    height: 15px;
+    background: transparent url("https://idc-static.s3-us-west-2.amazonaws.com/whitelabel/btn-edit-pencil.png") no-repeat scroll left center !important;
+    vertical-align: middle;
+  }
+  .resume-wrap .resume-section .resume-edit-link:hover {
+    text-decoration: none;
+  }
+  .resume-wrap .resume-status {
+    color: white;
+    background-color: #3fa448;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .resume-wrap .certified {
+    position: relative;
+    top: 10px;
+    left: 20px;
+  }
+  .resume-wrap .resume-contact {
+    text-align: center;
+    border-bottom: solid 5px #333333;
+    margin: 20px 20px 0;
+    padding: 0;
+  }
+  .resume-wrap .resume-contact h1 {
+    margin: 0;
+    line-height: 1.1em;
+  }
+  .resume-wrap .resume-contact .resume-edit-link {
+    right: 0px;
+    top: 0px;
+  }
+  .resume-wrap .resume-contact .rd-intern-details {
+    padding: 8px 0;
+  }
+  .resume-wrap .resume-objective,
+  .resume-wrap .resume-additional {
+    padding-right: 80px;
+  }
+  .resume-wrap .resume-school,
+  .resume-wrap .resume-position {
+    position: relative;
+    border-top: solid 1px #cccccc;
+    padding: 15px 80px 15px 0;
+  }
+  .resume-wrap .resume-school:first-child,
+  .resume-wrap .resume-position:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+  .resume-wrap .resume-school h3,
+  .resume-wrap .resume-position h3 {
+    line-height: 1.1em;
+    margin: 0;
+  }
+  .resume-wrap .resume-school .resume-edit-link,
+  .resume-wrap .resume-position .resume-edit-link {
+    right: 0px;
+    top: 15px;
+  }
+  .resume-wrap .resume-school .stats {
+    font-weight: bold;
+  }
+  .resume-wrap .resume-school .school-location,
+  .resume-wrap .resume-school .enrolled-dates {
+    font-weight: bold;
+    color: #999999;
+  }
+  .resume-wrap .resume-position .company-position {
+    font-weight: bold;
+  }
+  .resume-wrap .resume-position .company-location,
+  .resume-wrap .resume-position .employed-dates {
+    font-weight: bold;
+    color: #999999;
+  }
+  .resume-wrap .info-item {
+    margin-bottom: 4px;
+    list-style-type: disc;
+    line-height: 14.3px;
+  }
+  .resume-wrap .additional-info {
+    margin-bottom: 0;
+  }
+  .resume-wrap .link-add {
+    display: inline-block;
+    padding: 8px 0;
+  }
+  .back-link-container {
+    margin: 15px 0;
+    float: right;
+  }
+  .btn-full-width {
+    width: 180px;
+    margin: 5px;
+  }
+  .email-errors {
+    color: red;
+  }
+  body.uploads.create .ajax-upload {
+    padding-top: 20px;
+  }
+  body.uploads.create .post-upload-resume img {
+    padding-left: 50px;
+  }
+  body.resumes.edit .sidebar-section {
+    margin-top: 53px;
+  }
+  body.resumes.edit .resume-status {
+    display: none;
+  }
+  body.resumes.edit .resume-tools-nav {
+    margin: 0;
+    padding: 0;
+  }
+  body.resumes.edit .resume-tools-nav li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  body.resumes.edit #update_status {
+    width: 650px;
+  }
+  body.resumes.edit #update_status form {
+    margin: 0;
+  }
+  body.resumes.edit .update-status-form {
+    margin: 15px 0;
+  }
+  body.resumes.edit .update-status-form .ui-selectmenu {
+    display: inline-block;
+    width: 200px;
+    vertical-align: middle;
+  }
+  body.resumes.edit .update-status-form label.radio {
+    font-size: 13px;
+  }
+  body.resumes.edit .update-status-form #InterningAt {
+    width: 190px;
+    margin: 0;
+  }
+  body.resumes.edit .update-status-form #internship-time-period {
+    vertical-align: top;
+    padding-left: 12px;
+  }
+  body.resumes.edit .ui-selectmenu-menu {
+    z-index: 20000;
+  }
+  body.ie.resumes.edit .update-status-form {
+    line-height: 36px;
+  }
+  body.ie.resumes.edit .update-status-form .ui-selectmenu {
+    vertical-align: top;
+  }
+  body.ie.resumes.edit .update-status-form #InterningAt {
+    width: 180px;
+  }
+  body.resumes.show .share-container {
+    padding: 15px 0;
+  }
+  body.resumes.show .share-widget {
+    float: right;
+  }
+  body.resumes.show .share-widget > span {
+    float: left;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  body.resumes.show .share-widget a.last {
+    padding-right: 0;
+  }
+  .resume-wrap .info-item {
+    margin-bottom: 4px;
+    list-style-type: disc;
+    line-height: 14.3px;
+  }
+  .resume-contact h1 {
+    font-size: 30px;
+  }
+  </style>
 <% end %>
 
-<div class="resume-wrap" style="background-color: white; width: 100%; padding-top: 5px;">
-<div class="resume-contact resume-section">
+<div class="resume-wrap" style="background-color: white; padding-top: 5px; margin: 20px">
+  <div class="resume-contact resume-section">
     <h1><%= current_user.display_name ? current_user.display_name : "#{current_user.first_name} #{current_user.last_name}" %></h1>
     <div class="rd-intern-details">
         <% if current_user.city && current_user.zip %>
@@ -267,23 +267,23 @@
         <% if current_user.phone %><%= current_user.phone %> •<% end %>
         <%= current_user.email %>
     </div>
-</div>
+  </div>
 
-<div class="resume-section resume-objective">
+  <% if !@resume.objective.blank? %>
+  <div class="resume-section resume-objective">
     <h3>Objective</h3>
     <div class="objective-text">
       <%= @resume.objective %>
     </div>
-</div>
+  </div>
+  <% end %>
 
-
-<div class="resume-section resume-education">
+  <div class="resume-section resume-education">
     <h3>Education</h3>
     <div class="schools">
         <% @resume.education.each do |education| %>
         <div class="resume-school">
             <h3><%= education.school_name %></h3>
-
             <div class="stats">
                 <span class="degree"><%= education.degree %></span>,
                 <span class="major"><%= education.major ? education.major : "Undecided" %></span> (Major),
@@ -306,10 +306,9 @@
         </div>
         <% end %>
     </div>
-</div>
+  </div>
 
-
-<div class="resume-section resume-experience">
+  <div class="resume-section resume-experience">
     <h3>Experience</h3>
     <div class="positions">
         <% @resume.experience.each do |exp| %>
@@ -332,10 +331,10 @@
         </div>
         <% end %>
     </div>
-</div>
+  </div>
 
 
-<div class="resume-additional resume-section">
+  <div class="resume-additional resume-section">
     <h3>Skills &amp; Additional Info</h3>
     <ul class="bullet-list">
         <% if @resume.skill.any? %>
@@ -356,10 +355,10 @@
         </li>
         <% end %>
     </ul>
-</div>
+  </div>
 
 
-<div class="resume-section resume-links">
+  <div class="resume-section resume-links">
     <h3>Links</h3>
     <ul class="bullet-list additional-info">
         <% @resume.link.each do |link| %>
@@ -376,5 +375,5 @@
         </li>
         <% end %>
     </ul>
-</div>
+  </div>
 </div>
